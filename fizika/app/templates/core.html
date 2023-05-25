@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Главная страница{% endblock title %}
+{% block content %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+
+            <br><br>
+            <p>
+                {% for cg in c_gl %}
+                <a class="border p-2" data-bs-toggle="collapse" role="button"
+                    aria-expanded="false" aria-controls="collapseExample"
+                    data-bs-target="#collapseExample{{cg.id}}">
+                    {{cg.name}}
+                </a>
+               
+            </p>
+            <div class="collapse" id="collapseExample{{cg.id}}">
+                {% for glav in glav %}
+                {% if cg.id == glav.core_glav_id %}
+                <a class="border p-2" data-bs-toggle="collapse" href="#collapseExample{{cg.id}}_{{glav.id}}" role="button"
+                    aria-expanded="false" aria-controls="collapseExample{{cg.id}}_{{glav.id}}">
+                    {{glav.name}}
+                </a>
+                {% endif %}
+                
+                <div class="collapse" id="collapseExample{{cg.id}}_{{glav.id}}">
+                    {% for them in theme %}
+                        {% if glav.id == them.glav_id %}
+                        <a href="{% url 'theme' them.id %}" >
+                            {{them.title}} 
+                        </a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                {% endfor %}
+            
+                <br><br>
+                </div>
+                {% endfor %}
+            
+            
+        </div>
+
+
+          
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
